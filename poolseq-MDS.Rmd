@@ -1,0 +1,54 @@
+---
+title: "poolseq-PCA"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## GitHub Documents
+
+This is an R Markdown format used for publishing markdown documents to GitHub. When you click the **Knit** button all R code chunks are run and a markdown file (.md) suitable for publishing to GitHub is generated.
+
+## Before you start
+An allelic depth file is needed from a filtered VCF File. It can be obtained using the following:
+```
+bcftools query -H -f '%CHROM\t%POS\t%REF\t%ALT[\t%AD]\n' file.vcf > output.tsv
+```
+
+Next use the `DepthtoFreq.sh <filename>` command to convert the depth file to frequencies. 
+- This script has been coded to do the job, however, it is not optimized yet. 
+- If you have ideas you are welcome to improve it.  
+
+
+## Including Code
+
+```{r Preparing the file and calculating major allele frequencies}
+allelicDepthTable<-read.table("M2018-DP100-AF-noINDEL-AD.tsv",sep = "\t",header = T,check.names = F)
+
+nCols<-ncol(allelicDepthTable)
+depths<-strsplit(allelicDepthTable[,5],",")
+af_all<-c()
+#for (i in depths) {
+#  j=as.numeric(i)
+#  af=j[1]/sum(j)
+#  af_all<-c(af_all,af)
+#}
+
+#for (i in 5:nCols){
+#  depths<-strsplit(allelicDepthTable[,5],",")
+  
+#}
+```
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
